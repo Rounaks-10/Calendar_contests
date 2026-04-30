@@ -48,7 +48,7 @@ async function fetchContests() {
 // Generate contests from Leetcode
 function setTime(date, hour, minute) {
   const d = new Date(date);
-  d.setHours(hour, minute, 0, 0);
+  d.setUTCHours(hour, minute, 0, 0);
   return d;
 }
 function generateLeetCodeContests() {
