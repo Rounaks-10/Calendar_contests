@@ -24,10 +24,8 @@ async function fetchContests() {
       .map((c) => ({
         id: `cf-${c.id}`,
         title: "[CF] " + c.name,
-        start: toIST(new Date(c.startTimeSeconds * 1000)),
-        end: toIST(
-          new Date(c.startTimeSeconds * 1000 + c.durationSeconds * 1000),
-        ),
+        start: new Date(c.startTimeSeconds * 1000),
+        end: new Date(c.startTimeSeconds * 1000 + c.durationSeconds * 1000),
         url: `https://codeforces.com/contests/${c.id}`,
         description: "Codeforces Contest",
       }));
@@ -51,9 +49,6 @@ function setTime(date, hour, minute) {
   const d = new Date(date);
   d.setHours(hour, minute, 0, 0);
   return d;
-}
-function toIST(date) {
-  return new Date(date.getTime() + 5.5 * 60 * 60 * 1000);
 }
 function generateLeetCodeContests() {
   const contests = [];
@@ -112,23 +107,6 @@ app.get("/contests.ics", (req, res) => {
   try {
     const calendar = ical({
       name: "Coding Contests",
-      timezone: "Asia/Kolkata",
-    });
-
-    // 🔥 REQUIRED for Google Calendar URL subscription
-    calendar.timezone({
-      name: "Asia/Kolkata",
-      generator: () => `
-        BEGIN:VTIMEZONE
-        TZID:Asia/Kolkata
-        BEGIN:STANDARD
-        DTSTART:19700101T000000
-        TZOFFSETFROM:+0530
-        TZOFFSETTO:+0530
-        TZNAME:IST
-        END:STANDARD
-        END:VTIMEZONE
-        `,
     });
 
     cachedContests.forEach((contest) => {
@@ -136,7 +114,6 @@ app.get("/contests.ics", (req, res) => {
         id: contest.id, // prevents duplicates
         start: contest.start,
         end: contest.end,
-        timezone: "Asia/Kolkata",
         summary: contest.title,
         description: contest.description,
         url: contest.url,
