@@ -31,7 +31,7 @@ async function fetchContests() {
       }));
 
     // LeetCode (generated)
-    const lcContests = [];
+    const lcContests = generateLeetCodeContests();
 
     // Merge both
     cachedContests = [...cfContests, ...lcContests];
