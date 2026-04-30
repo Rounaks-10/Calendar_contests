@@ -30,13 +30,10 @@ async function fetchContests() {
         description: "Codeforces Contest",
       }));
 
-    // LeetCode (generated)
-    const lcContests = generateLeetCodeContests();
 
     // Merge both
-    cachedContests = [...cfContests, ...lcContests];
-    console.log(cachedContests)
-
+    cachedContests = cfContests
+console.log(cachedContests)
     lastUpdated = new Date();
 
     console.log("✅ Total contests:", cachedContests.length);
@@ -45,57 +42,7 @@ async function fetchContests() {
   }
 }
 
-// Generate contests from Leetcode
-function setTime(date, hour, minute) {
-  const d = new Date(date);
-  d.setUTCHours(hour, minute, 0, 0);
-  return d;
-}
-function generateLeetCodeContests() {
-  const contests = [];
-  const now = new Date();
 
-  const baseBiweekly = new Date("2024-01-06"); // known LC biweekly
-
-  for (let i = 0; i < 30; i++) {
-    const date = new Date();
-    date.setDate(now.getDate() + i);
-
-    const day = date.getDay();
-
-    // 🟡 Weekly (Sunday)
-    if (day === 0) {
-      contests.push({
-        id: `lc-weekly-${date.toISOString()}`,
-        title: "[LC] Weekly Contest",
-        start: setTime(date, 20, 0),
-        end: setTime(date, 21, 30),
-        url: "https://leetcode.com/contest/",
-        description: "LeetCode Weekly Contest",
-      });
-    }
-
-    // 🔵 Biweekly (Saturday alternate)
-    if (day === 6) {
-      const diffWeeks = Math.floor(
-        (date - baseBiweekly) / (7 * 24 * 60 * 60 * 1000),
-      );
-
-      if (diffWeeks % 2 === 0) {
-        contests.push({
-          id: `lc-biweekly-${date.toISOString()}`,
-          title: "[LC] Biweekly Contest",
-          start: setTime(date, 20, 0),
-          end: setTime(date, 21, 30),
-          url: "https://leetcode.com/contest/",
-          description: "LeetCode Biweekly Contest",
-        });
-      }
-    }
-  }
-
-  return contests;
-}
 
 // Run initially
 fetchContests();
