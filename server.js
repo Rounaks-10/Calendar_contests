@@ -31,10 +31,11 @@ async function fetchContests() {
       }));
 
     // LeetCode (generated)
-    const lcContests = generateLeetCodeContests();
+    const lcContests = [];
 
     // Merge both
     cachedContests = [...cfContests, ...lcContests];
+    console.log(cachedContests)
 
     lastUpdated = new Date();
 
