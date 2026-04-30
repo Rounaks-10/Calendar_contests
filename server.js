@@ -61,7 +61,7 @@ function generateLeetCodeContests() {
   const baseBiweekly = new Date("2024-01-06"); // known LC biweekly
 
   for (let i = 0; i < 30; i++) {
-    const date = new Date();
+    const date = new Date(now);
     date.setDate(now.getDate() + i);
 
     const day = date.getDay();
@@ -111,14 +111,13 @@ app.get("/contests.ics", (req, res) => {
   try {
     const calendar = ical({
       name: "Coding Contests",
-      timezone: "Asia/Kolkata",
     });
 
     cachedContests.forEach((contest) => {
       calendar.createEvent({
         id: contest.id, // prevents duplicates
-        start: contest.start,
-        end: contest.end,
+        start: new Date(contest.start.toISOString()),
+        end: new Date(contest.end.toISOString()),
         summary: contest.title,
         description: contest.description,
         url: contest.url,
