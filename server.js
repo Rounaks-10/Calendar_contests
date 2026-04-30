@@ -110,8 +110,7 @@ cron.schedule("0 */12 * * *", fetchContests);
 app.get("/contests.ics", (req, res) => {
   try {
     const calendar = ical({
-      name: "Coding Contests",
-      timezone: "Asia/Kolkata",
+      name: "Coding Contests"
     });
 
     cachedContests.forEach((contest) => {
