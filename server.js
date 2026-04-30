@@ -116,8 +116,9 @@ app.get("/contests.ics", (req, res) => {
     cachedContests.forEach((contest) => {
       calendar.createEvent({
         id: contest.id, // prevents duplicates
-        start: new Date(contest.start.toISOString()),
-        end: new Date(contest.end.toISOString()),
+        start: contest.start,
+        end: contest.end,
+        timezone: "Asia/Kolkata",
         summary: contest.title,
         description: contest.description,
         url: contest.url,
