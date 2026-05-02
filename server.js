@@ -54,7 +54,7 @@ cron.schedule("0 */12 * * *", fetchContests);
 app.get("/contests.ics", (req, res) => {
   try {
     const calendar = ical({
-      name: "Codeforces Coding Contests",
+      name: "Codeforces Contests",
     });
 
     cachedContests.forEach((contest) => {
