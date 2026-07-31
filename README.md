@@ -23,7 +23,7 @@ The service refreshes contest data automatically and supports reminder notificat
 ## Architecture
 
 <p align="center">
-  <img src="./assets/architecture.png" alt="ContestSync Architecture" width="900"/>
+  <img src="/Architecture.png" alt="ContestSync Architecture" width="900"/>
 </p>
 
 <p align="center">
